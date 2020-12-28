@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -27,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_photo_path',
         'address', 'houseNumber', 'phoneNumber',
         'city', 'roles'
     ];
@@ -70,5 +71,17 @@ class User extends Authenticatable
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->timestamp;
+    }
+
+    public function toArray()
+    {
+        $toArray = parent::toArray();
+        $toArray['profile_photo_path'] = $this->profile_photo_path;
+        return $toArray;
+    }
+
+    public function getPicturePathAttribute()
+    {
+        return url('') . Storage::url($this->attributes['profile_photo_path']);
     }
 }

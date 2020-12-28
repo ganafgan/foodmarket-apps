@@ -6,13 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Food extends Model
 {
     use HasFactory, softDeletes;
 
     protected $fillable = [
-        'name', 'decription', 'ingredients', 
+        'name', 'description', 'ingredients', 
         'price', 'rate', 'types', 'picturePath'
     ];
 

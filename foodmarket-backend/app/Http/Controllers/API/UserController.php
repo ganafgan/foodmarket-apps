@@ -83,7 +83,7 @@ class UserController extends Controller
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user
-            ]);
+            ], 'User Registered');
 
         } catch (Exception $error) {
             //Jika error
@@ -127,7 +127,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return ResponseFormatter::error([
                 'error' => $validator->errors()
-            ], 'Update pho fails', 401);
+            ], 'Update photo fails', 401);
         }
 
         if ($request->file('file')) {
