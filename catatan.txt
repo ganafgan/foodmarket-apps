@@ -1,3 +1,9 @@
 belum menambahkan hook nya,
 error page
 dan unfinish page di midtrans
+
+menggunakan pixel 2XL
+823 x 411
+
+https://www.npmjs.com/package/react-native-responsive-screen
+https://www.npmjs.com/package/react-native-responsive-dimensions
