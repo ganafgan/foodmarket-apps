@@ -7,3 +7,14 @@ menggunakan pixel 2XL
 
 https://www.npmjs.com/package/react-native-responsive-screen
 https://www.npmjs.com/package/react-native-responsive-dimensions
+https://github.com/satya164/react-native-tab-view
+
+kalo navigation nya ada di page bis apake ({navigation})
+kalo navigation nya di molecul import { useNavigation } from '@react-navigation/native'
+lalu const navigation = useNavigation()
+
+kalau alignitem center dan justifycontentcenter makan tombol nya kasih width 100%
+
+bila if nya atau koondisi of nya banyak, bisa memakai switch case
+
+axios harus request dari luar tidak bisa dari ip lokal

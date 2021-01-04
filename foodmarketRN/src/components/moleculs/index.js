@@ -1,9 +1,29 @@
 import Header from './Header'
 import BottomNavigator from './BottomNavigator'
 import FoodCard from './FoodCard'
+import HomeTabSection from './HomeTabSection'
+import Rating from './Rating'
+import HomeProfile from './HomeProfile'
+import ListFood from './ListFood'
+import Counter from './Counter'
+import ItemValue from './ItemValue'
+import EmptyOrder from './EmptyOrder'
+import OrderTabSection from './OrderTabSection'
+import ProfileTabSection from './ProfileTabSection'
+import ListMenu from './ListMenu'
 
 export {
     Header,
     BottomNavigator,
-    FoodCard
+    FoodCard,
+    HomeTabSection,
+    Rating,
+    HomeProfile,
+    ListFood,
+    Counter,
+    ItemValue,
+    EmptyOrder,
+    OrderTabSection,
+    ProfileTabSection,
+    ListMenu
 }

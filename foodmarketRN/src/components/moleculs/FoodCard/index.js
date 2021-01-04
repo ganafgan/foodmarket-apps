@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { IcStarActive, IcStarInactive, ILFood1 } from '../../../assets'
 import { colors, dimension, fonts } from '../../../utils'
+import Rating from '../Rating'
 
 const FoodCard = ({image}) => {
     return (
@@ -9,16 +9,7 @@ const FoodCard = ({image}) => {
             <Image source={image} style={styles.image}/>
             <View style={styles.content}>
                 <Text style={styles.title}>Cherry Healthy</Text>
-                <View style={styles.ratingContainer}>
-                    <View style={styles.starContainer}>
-                        <IcStarActive/>
-                        <IcStarActive/>
-                        <IcStarActive/>
-                        <IcStarActive/>
-                        <IcStarInactive/>
-                    </View>
-                    <Text>4.5</Text>
-                </View>
+                <Rating/>
             </View>
         </View>
     )
@@ -58,10 +49,4 @@ const styles = StyleSheet.create({
         fontFamily: fonts.primary[400],
         color: colors.black
     },
-    starContainer: {
-        flexDirection: 'row'
-    },
-    ratingContainer: {
-        flexDirection: 'row'
-    }
 })

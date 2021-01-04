@@ -1,9 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import { Button, Gap, Header, Input } from '../../components'
 import { colors, dimension, fonts } from '../../utils'
 
+
 const SignUp = ({navigation}) => {
+    
+    const globalState = useSelector((state) => state.globalReducer)
+    console.log(globalState)
+
     return (
         <View style={styles.page}>
             <Header title='Address' subtitle='Make sure it`s valid' onBack/>

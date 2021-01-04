@@ -1,9 +1,23 @@
 import React from 'react'
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { Home, Order, Profile, SignIn, SignUp, SignUpAddress, SplashScreen, SuccessSignUp } from '../pages';
+import { 
+    Home, 
+    Order, 
+    Profile, 
+    SignIn, 
+    SignUp, 
+    SignUpAddress, 
+    SplashScreen, 
+    SuccessSignUp,
+    FoodDetail,
+    OrderSummary,
+    SuccessOrder,
+    OrderDetail,
+    
+} from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
-;
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator()
@@ -21,7 +35,7 @@ const MainApp = () => {
 const Router = () => {
     return (
         <Stack.Navigator
-            initialRouteName='MainApp'
+            initialRouteName='SignIn'
             screenOptions={{
                 gestureEnabled: true,
                 gestureDirection: 'horizontal',
@@ -56,6 +70,26 @@ const Router = () => {
              <Stack.Screen 
                 name='MainApp' 
                 component={MainApp} 
+                options={{headerShown:false}}
+             />
+             <Stack.Screen 
+                name='FoodDetail' 
+                component={FoodDetail} 
+                options={{headerShown:false}}
+             />
+             <Stack.Screen 
+                name='OrderSummary' 
+                component={OrderSummary} 
+                options={{headerShown:false}}
+             />
+              <Stack.Screen 
+                name='SuccessOrder' 
+                component={SuccessOrder} 
+                options={{headerShown:false}}
+             />
+             <Stack.Screen 
+                name='OrderDetail' 
+                component={OrderDetail} 
                 options={{headerShown:false}}
              />
         </Stack.Navigator>

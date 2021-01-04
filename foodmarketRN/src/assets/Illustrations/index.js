@@ -5,6 +5,9 @@ import ILFood1 from './food1.png'
 import ILFood2 from './food2.png'
 import ILFood3 from './food3.png'
 import ILFood4 from './food4.png'
+import ILFood5 from './food5.png'
+import ILSuccessOrder from './success-order.png'
+import ILEmptyOrder from './empty-order.png'
 
 export {
     ILLogo,
@@ -13,5 +16,8 @@ export {
     ILFood1,
     ILFood2,
     ILFood3,
-    ILFood4
+    ILFood4,
+    ILFood5,
+    ILSuccessOrder,
+    ILEmptyOrder
 }
