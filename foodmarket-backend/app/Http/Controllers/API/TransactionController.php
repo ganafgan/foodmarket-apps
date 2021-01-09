@@ -16,7 +16,7 @@ class TransactionController extends Controller
     public function all(Request $request)
     {
         $id = $request->input('id');
-        $limit = $request->input('limit', 6);
+        $limit = $request->input('limit', 10);
         $food_id = $request->input('food_id');
         $status = $request->input('status');
 
@@ -65,7 +65,7 @@ class TransactionController extends Controller
         $request->validate([
             'food_id' => 'required|exists:food,id',
             'user_id' => 'required|exists:users,id',
-            'quantity' => 'requred',
+            'quantity' => 'required',
             'total' => 'required',
             'status' => 'required'            
         ]);
@@ -75,7 +75,8 @@ class TransactionController extends Controller
             'user_id' => $request->user_id,
             'quantity' => $request->quantity,
             'total' => $request->total,
-            'status' => $request->status
+            'status' => $request->status,
+            'payment_url' => ''
         ]);
 
         //konfigurasi midtrans

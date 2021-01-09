@@ -35,7 +35,7 @@ const MainApp = () => {
 const Router = () => {
     return (
         <Stack.Navigator
-            initialRouteName='SignIn'
+            
             screenOptions={{
                 gestureEnabled: true,
                 gestureDirection: 'horizontal',

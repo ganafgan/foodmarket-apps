@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ILFood4 } from '../../../assets';
 import { colors, dimension, fonts } from '../../../utils';
+import Number from '../Number';
 import Rating from '../Rating';
 
 const ListFood = ({
@@ -24,9 +25,9 @@ const ListFood = ({
                     <>
                         <View style={styles.content}>
                             <Text style={styles.tilte}>{name}</Text>
-                            <Text style={styles.price}>IDR {price}</Text>
+                            <Number number={price} style={styles.price}/>
                         </View>
-                       <Rating rating={rating}/>
+                       <Rating number={rating}/>
                     </>
                 )
             case 'order-summary':
@@ -35,7 +36,7 @@ const ListFood = ({
                     <>
                         <View style={styles.content}>
                             <Text style={styles.tilte}>{name}</Text>
-                            <Text style={styles.price}>IDR {price}</Text>
+                            <Number number={price} style={styles.price}/>
                         </View>
                         <Text style={styles.items}>{items} items</Text>
                     </>
@@ -70,7 +71,7 @@ const ListFood = ({
                     <>
                         <View style={styles.content}>
                             <Text style={styles.tilte}>{name}</Text>
-                            <Text style={styles.price}>IDR {price}</Text>
+                            <Number number={price} style={styles.price}/>
                         </View>
                        <Rating/>
                     </>

@@ -1,14 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IcArrowForward } from '../../../assets'
 import { colors, dimension, fonts } from '../../../utils'
 
-const ListMenu = ({name}) => {
+const ListMenu = ({name, onPress}) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={onPress}>
             <Text style={styles.menu}>{name}</Text>
             <IcArrowForward/>
-        </View>
+        </TouchableOpacity>
     )
 }
 

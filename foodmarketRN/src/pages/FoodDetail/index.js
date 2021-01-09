@@ -1,14 +1,66 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import { IcArrowBackWhite, ILFood5 } from '../../assets'
-import { Button, Counter, Gap, Rating } from '../../components'
-import { colors, dimension, fonts } from '../../utils'
+import { Button, Counter, Gap, Number, Rating } from '../../components'
+import { colors, dimension, fonts, getData } from '../../utils'
 
-const FoodDetail = ({navigation}) => {
+const FoodDetail = ({navigation, route}) => {
+
+    const {
+        id,
+        name, 
+        picturePath, 
+        description,
+        ingredients,
+        rate,
+        price
+    } = route.params
+
+    const [totalItem, setTotalItem] = useState(1)
+    const [userProfile, setUserProfile] = useState({})
+
+    useEffect(()=>{
+        getData('userProfile')
+            .then((res)=>{
+                console.log('profile :', res)
+                setUserProfile(res)
+            })
+    }, [])
+
+    const onCounterChange = (value) => {
+        console.log('cek', value)
+        setTotalItem(value)    
+    }
+
+    const onOrder = () => {
+        const totalPrice = totalItem * price
+        const driver = 50000
+        const tax = 10/100 * totalPrice
+        const total = totalPrice + driver + tax
+        const data = {
+            item: {
+                id: id,
+                name: name,
+                price: price,
+                picturePath: picturePath
+            },
+            transaction: {
+                totalItem: totalItem,
+                totalPrice: totalPrice,
+                driver: driver,
+                tax: tax ,
+                total: total
+            },
+            userProfile
+        }
+        console.log('data checkout :', data)
+        navigation.navigate('OrderSummary', data)
+    }
+
     return (
         <View style={styles.container}>
-            <ImageBackground source={ILFood5} style={styles.cover}>
-                <TouchableOpacity style={styles.back}>
+            <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+                <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
                     <IcArrowBackWhite/>
                 </TouchableOpacity>
             </ImageBackground>
@@ -16,28 +68,26 @@ const FoodDetail = ({navigation}) => {
                 <View style={styles.mainContent}>
                     <View style={styles.productContainer}>
                         <View>
-                            <Text style={styles.title}>Chery Healthy</Text>
-                            <Rating/>
+                            <Text style={styles.title}>{name}</Text>
+                            <Rating number={rate}/>
                         </View>
-                        <Counter/>
+                        <Counter onValueChange={onCounterChange}/>
                     </View>
                     <Gap height={ dimension.height * 0.017}/>
-                    <Text style={styles.desc}>Makanan khas Bandung yang cukup sering dipesan oleh anak muda dengan pola makan
-                            yang cukup tinggi dengan mengutamakan
-                            diet yang sehat dan teratur.
-                    </Text>
+                    <Text style={styles.desc}>{description}</Text>
                     <Text style={styles.label}>Ingredients</Text>
-                    <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text> 
+                    <Text style={styles.desc}>{ingredients}</Text> 
                 </View>
                <View style={styles.footer}>
                    <View style={styles.priceContainer}>
                        <Text style={styles.labelTotal}>Total Price</Text>
-                       <Text style={styles.priceTotal}>IDR 250.000</Text>
+                       <Number number={totalItem * price} style={styles.priceTotal} />
+                       {/* <Text style={styles.priceTotal}>IDR {totalItem * price}</Text> */}
                    </View>
                    <View style={styles.button}>
                        <Button 
                             text='Order Now'
-                            onPress={() => navigation.navigate('OrderSummary')}
+                            onPress={onOrder}
                        />
                    </View>
                </View>

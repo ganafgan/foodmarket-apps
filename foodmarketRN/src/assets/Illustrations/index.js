@@ -8,6 +8,7 @@ import ILFood4 from './food4.png'
 import ILFood5 from './food5.png'
 import ILSuccessOrder from './success-order.png'
 import ILEmptyOrder from './empty-order.png'
+import ILUser from './user.png'
 
 export {
     ILLogo,
@@ -19,5 +20,6 @@ export {
     ILFood4,
     ILFood5,
     ILSuccessOrder,
-    ILEmptyOrder
+    ILEmptyOrder,
+    ILUser
 }

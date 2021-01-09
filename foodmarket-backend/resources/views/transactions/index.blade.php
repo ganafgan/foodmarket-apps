@@ -30,7 +30,7 @@
                                     <td class="border px-6 py-4">{{ number_format($item->total)}}</td>
                                     <td class="border px-6 py-4">{{$item->status}}</td>
                                     <td class="border px-6 py-4 text-center">
-                                        <a href="{{route('transactions.show', $item->id )}}" 
+                                        <a href="{{route('transactions.show', $item->id) }}" 
                                             class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">View
                                         </a>
                                         <form action="{{route('transactions.destroy', $item->id) }}" method="POST" class="inline-block">

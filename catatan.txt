@@ -18,3 +18,57 @@ kalau alignitem center dan justifycontentcenter makan tombol nya kasih width 100
 bila if nya atau koondisi of nya banyak, bisa memakai switch case
 
 axios harus request dari luar tidak bisa dari ip lokal
+
+setor data ke redux menggunakan dispatch (useDispatch)
+memanggil data di redux menggunakan selector (useSelector(state) => state.registerReducer)
+pmenggilan selector pertama kali pasti kosong, karna render pertama pasti kosong
+
+untuk memanggil API berbasis php di local gunakan perintah php artisan serve --host=192.168.100.23
+lalu ini kode axios nya axios.post('http://192.168.100.23:8000/api/register', data)
+
+useSelector dan MapStateToProps fungsi nya bisa sama. Bedanya kalau useSelector kita jadikan
+variable si state global nya kalau MapStateToProps state global nya dijadikan props
+
+Provider redux harus membungkus NavigationContainer
+
+image-picker ada update versi ke versi 3
+contoh kode nya
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+const addPhoto = () => {
+        let options = {
+            quality: 0.5,
+            maxWidth: 200,
+            maxHeight: 200
+        }
+       launchImageLibrary(options, (response) => {
+             console.log(response)
+
+            if (response.didCancel || response.errorCode == 'others') {
+            ShowError('User cancelled camera picker');
+            } else {
+                const source = {uri: response.uri}
+                const dataImage = {
+                    uri: response.uri,
+                    type: response.type,
+                    name: response.fileName
+                }
+                setPhoto(source)
+            }
+       })
+    } 
+
+logic menampilkan foto nya
+<View style={styles.photo}>
+           <TouchableOpacity activeOpacity={0.7} onPress={addPhoto}>
+                            <View style={styles.borderPhoto}>
+                                {photo 
+                                ? 
+                                <Image source={photo} style={styles.photoContainer}/> 
+                                : 
+                                <View style={styles.photoContainer}>
+                                    <Text style={styles.addPhoto}>Add Photo</Text>
+                                </View>
+                                }
+                            </View>
+                        </TouchableOpacity>
+                    </View>

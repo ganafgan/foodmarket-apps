@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { ILFood1, ILFood2, ILFood3, ILFood4 } from '../../assets'
+import { useDispatch, useSelector } from 'react-redux'
 import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components'
+import { getFoodData } from '../../redux/action/home'
 import { dimension } from '../../utils'
 
 
-const Home = () => {
+const Home = ({navigation}) => {
+
+    const dispatch = useDispatch()
+    const {food} = useSelector((state) => state.homeReducer)
+
+    useEffect(()=>{
+        dispatch(getFoodData())
+    },[])
+
+    const renderDataFood = () => {
+        return food.map((itemFood)=>{
+            return (
+                <FoodCard
+                    key={itemFood.id}
+                    name={itemFood.name}
+                    image={{uri: itemFood.picturePath}}
+                    rating={itemFood.rate}
+                    onPress={() => navigation.navigate('FoodDetail', itemFood)}
+                />
+            )
+        })
+    }
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -14,10 +37,7 @@ const Home = () => {
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <View style={styles.foodContainer}>
                             <Gap width={dimension.width * 0.058}/>
-                            <FoodCard image={ILFood1}/>
-                            <FoodCard image={ILFood2}/>
-                            <FoodCard image={ILFood3}/>
-                            <FoodCard image={ILFood4}/>
+                            {renderDataFood()}
                         </View>
                     </ScrollView>
                 </View>
@@ -39,6 +59,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     tabContainer: {
-        flex: 1
+        flex: 1,
     }
 })

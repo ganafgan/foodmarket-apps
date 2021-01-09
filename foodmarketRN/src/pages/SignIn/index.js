@@ -1,8 +1,9 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { Button, Gap, Header, Input } from '../../components'
-import { colors, dimension, useForm } from '../../utils'
+import { SignInAction } from '../../redux/action/auth'
+import { colors, dimension, getData, useForm } from '../../utils'
 
 
 const SignIn = ({navigation}) => {
@@ -12,14 +13,10 @@ const SignIn = ({navigation}) => {
         password: ''
     })
 
+    const dispatch = useDispatch()
+
     const onSubmit = () => {
-        axios.post('http://b15f436e82d7.ngrok.io/api/login', form)
-            .then((res) => {
-                console.log('success', res)
-            })
-            .catch((err) => {
-                console.log('error', err)
-            })
+        dispatch(SignInAction(form, navigation))
     }
 
     return (

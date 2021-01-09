@@ -1,17 +1,17 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, dimension, fonts } from '../../../utils'
 import Rating from '../Rating'
 
-const FoodCard = ({image}) => {
+const FoodCard = ({image, name, rating, onPress}) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity activeOpacity={0.9} style={styles.container} onPress={onPress} >
             <Image source={image} style={styles.image}/>
             <View style={styles.content}>
-                <Text style={styles.title}>Cherry Healthy</Text>
-                <Rating/>
+                <Text style={styles.title}>{name}</Text>
+                <Rating number={rating}/>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         marginVertical: dimension.height * 0.029,
     },
     image: {
-        width: dimension.width * 0.5,
+        width: dimension.width * 0.51,
         height: dimension.height * 0.17,
         resizeMode: 'cover'
     },

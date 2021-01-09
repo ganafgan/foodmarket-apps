@@ -4,12 +4,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { IcArrowBack } from '../../../assets'
 import { colors, dimension, fonts } from '../../../utils'
 
-const Header = ({title, subtitle, onBack}) => {
+const Header = ({title, subtitle, onBack, goBack}) => {
     return (
         <View style={styles.container}>
             {
                 onBack && (
-                    <TouchableOpacity activeOpacity={0.7}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={goBack}>
                         <View style={styles.back}>
                             <IcArrowBack/>
                         </View>

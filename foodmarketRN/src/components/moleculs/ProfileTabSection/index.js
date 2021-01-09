@@ -6,6 +6,7 @@ import { colors, dimension, fonts } from '../../../utils';
 import ListFood from '../ListFood';
 import { useNavigation } from '@react-navigation/native'
 import ListMenu from '../ListMenu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -39,6 +40,12 @@ const renderTabBar = props => (
 
 const Account = () => {
     const navigation = useNavigation()
+    const SignOut = () => {
+        AsyncStorage.multiRemove(['userProfile', 'token'])
+            .then(()=>{
+                navigation.reset({index: 0, routes: [{name: 'SignIn'}]})
+            })
+    }
 	return (
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
             <ListMenu
@@ -52,6 +59,10 @@ const Account = () => {
             />
             <ListMenu
                 name='Payments'
+            />
+            <ListMenu
+                name='SignOut'
+                onPress={SignOut}
             />
 		</View>
 	)

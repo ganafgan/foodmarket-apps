@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { ILFood1, ILFood2, ILFood3, ILFood4 } from '../../../assets';
 import { colors, dimension, fonts } from '../../../utils';
 import ListFood from '../ListFood';
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux';
+import { getFoodDataByTypes } from '../../../redux/action/home';
 
 
 
@@ -38,112 +40,84 @@ const renderTabBar = props => (
 
 const NewTaste = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const {newTaste} = useSelector((state) => state.homeReducer)
+
+    useEffect(()=>{
+        dispatch(getFoodDataByTypes('new_food'))
+    },[])
+
 	return (
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood4}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood1}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')}
-                image={ILFood2}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-             />
-            <ListFood
-                rating={3}
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood3}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-              />
+            {newTaste.map((item)=>{
+                return (
+                    <ListFood
+                        key={item.id}
+                        type='product'
+                        name={item.name}
+                        price={item.price}
+                        rating={item.rate}
+                        image={{uri: item.picturePath}}
+                        onPress={() => navigation.navigate('FoodDetail', item)}
+                    />
+                )
+            })}
 		</View>
 	)
 }
    
 const Popular = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const {popular} = useSelector((state) => state.homeReducer)
+
+    useEffect(()=>{
+        dispatch(getFoodDataByTypes('popular'))
+    },[])
+
 	return (
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood4}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood1}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood2}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3}
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood3}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-             />
+            {popular.map((item)=>{
+                return (
+                    <ListFood
+                        key={item.id}
+                        type='product'
+                        name={item.name}
+                        price={item.price}
+                        rating={item.rate}
+                        image={{uri: item.picturePath}}
+                        onPress={() => navigation.navigate('FoodDetail', item)}
+                    />
+                )
+            })}
 		</View>
 	)
 }
 
 const Recomended = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const {recomended} = useSelector((state) => state.homeReducer)
+
+    useEffect(()=>{
+        dispatch(getFoodDataByTypes('recomended'))
+    },[])
+    
 	return (
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood4}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood1}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('FoodDetail')} 
-                image={ILFood2}
-                type='produk'
-                name='Soup Special'
-                price={25000}
-            />
+            {recomended.map((item)=>{
+                return (
+                    <ListFood
+                        key={item.id}
+                        type='product'
+                        name={item.name}
+                        price={item.price}
+                        rating={item.rate}
+                        image={{uri: item.picturePath}}
+                        onPress={() => navigation.navigate('FoodDetail', item)}
+                    />
+                )
+            })}
 		</View>
 	)
 }

@@ -2,15 +2,27 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ILLogo } from '../../assets'
 import { Gap } from '../../components'
-import { colors, dimension, fonts } from '../../utils'
+import { colors, dimension, fonts, getData } from '../../utils'
 
 const SplashScreen = ({navigation}) => {
 
     useEffect(() => {
         setTimeout(() => {
-            navigation.replace('SignIn')
+            getData('token')
+            .then((res)=>{
+                console.log('token:', res)
+                if (res) {
+                    navigation.reset({index: 0, routes: [{name: 'MainApp'}]})
+                } else {
+                    navigation.replace('SignIn')
+                }
+            })
         }, 2000)
     }, [])
+
+    useEffect(()=>{
+        
+    },[])
     return (
         <View style={styles.container}>
             <ILLogo/>

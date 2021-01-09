@@ -11,6 +11,8 @@ import EmptyOrder from './EmptyOrder'
 import OrderTabSection from './OrderTabSection'
 import ProfileTabSection from './ProfileTabSection'
 import ListMenu from './ListMenu'
+import Loading from './Loading'
+import Number from './Number'
 
 export {
     Header,
@@ -25,5 +27,7 @@ export {
     EmptyOrder,
     OrderTabSection,
     ProfileTabSection,
-    ListMenu
+    ListMenu,
+    Loading,
+    Number
 }
