@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components'
+import { getInProgress, getOrders, getPastOrders } from '../../redux/action'
 import { getFoodData } from '../../redux/action/home'
 import { dimension } from '../../utils'
 
@@ -13,6 +14,9 @@ const Home = ({navigation}) => {
 
     useEffect(()=>{
         dispatch(getFoodData())
+        dispatch(getOrders())
+        dispatch(getInProgress())
+        dispatch(getPastOrders())
     },[])
 
     const renderDataFood = () => {

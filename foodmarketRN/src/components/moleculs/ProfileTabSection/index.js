@@ -1,12 +1,10 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { ILFood1, ILFood2, ILFood3, ILFood4 } from '../../../assets';
 import { colors, dimension, fonts } from '../../../utils';
-import ListFood from '../ListFood';
-import { useNavigation } from '@react-navigation/native'
 import ListMenu from '../ListMenu';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -50,6 +48,7 @@ const Account = () => {
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
             <ListMenu
                 name='Edit Profile'
+                onPress={() => navigation.navigate('EditProfile')}
             />
             <ListMenu
                 name='Home Address'

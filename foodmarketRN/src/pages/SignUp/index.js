@@ -12,6 +12,7 @@ const SignUp = ({navigation}) => {
         email: '',
         password: '',
     })
+    
     const [photo, setPhoto] = useState('')      
 
     const dispatch = useDispatch()

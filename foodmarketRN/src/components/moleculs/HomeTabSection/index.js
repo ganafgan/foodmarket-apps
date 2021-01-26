@@ -1,12 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { ILFood1, ILFood2, ILFood3, ILFood4 } from '../../../assets';
-import { colors, dimension, fonts } from '../../../utils';
-import ListFood from '../ListFood';
-import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux';
 import { getFoodDataByTypes } from '../../../redux/action/home';
+import { colors, dimension, fonts } from '../../../utils';
+import ListFood from '../ListFood';
 
 
 

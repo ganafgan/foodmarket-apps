@@ -22,13 +22,11 @@ const FoodDetail = ({navigation, route}) => {
     useEffect(()=>{
         getData('userProfile')
             .then((res)=>{
-                console.log('profile :', res)
                 setUserProfile(res)
             })
     }, [])
 
     const onCounterChange = (value) => {
-        console.log('cek', value)
         setTotalItem(value)    
     }
 
@@ -53,7 +51,6 @@ const FoodDetail = ({navigation, route}) => {
             },
             userProfile
         }
-        console.log('data checkout :', data)
         navigation.navigate('OrderSummary', data)
     }
 
@@ -82,7 +79,6 @@ const FoodDetail = ({navigation, route}) => {
                    <View style={styles.priceContainer}>
                        <Text style={styles.labelTotal}>Total Price</Text>
                        <Number number={totalItem * price} style={styles.priceTotal} />
-                       {/* <Text style={styles.priceTotal}>IDR {totalItem * price}</Text> */}
                    </View>
                    <View style={styles.button}>
                        <Button 

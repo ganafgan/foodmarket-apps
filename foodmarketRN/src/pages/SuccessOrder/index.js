@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ILSuccessOrder } from '../../assets'
 import { Button, Gap } from '../../components'
 import { colors, dimension, fonts } from '../../utils'
@@ -7,7 +7,7 @@ import { colors, dimension, fonts } from '../../utils'
 const SuccessOrder = ({navigation}) => {
     return (
         <View style={styles.container}>
-            <Image source={ILSuccessOrder} style={styles.img}/>
+            <ILSuccessOrder/>
             <Gap height={dimension.height * 0.036} />
             <Text style={styles.title}>You’ve Made Order</Text>
             <Text style={styles.subtitle}>Just stay at home while we are</Text>

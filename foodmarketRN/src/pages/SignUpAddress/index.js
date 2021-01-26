@@ -65,7 +65,8 @@ const SignUpAddress = ({navigation}) => {
                     <Select 
                         label='City'
                         value={form.city}
-                        onSelectChange={(value) => setForm('city', value)}                />
+                        onSelectChange={(value) => setForm('city', value)}          
+                    />
                     <Gap height={dimension.height * 0.029} />
                     <Button 
                         text='SignUp Now'

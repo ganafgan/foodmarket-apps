@@ -1,9 +1,10 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ILEmptyOrder } from '../../../assets'
 import { colors, dimension, fonts } from '../../../utils'
 import { Button, Gap } from '../../atoms'
-import { useNavigation } from '@react-navigation/native'
+
 
 const EmptyOrder = () => {
 
@@ -11,7 +12,7 @@ const EmptyOrder = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={ILEmptyOrder} style={styles.img}/>
+            <ILEmptyOrder/>
             <Gap height={dimension.height * 0.036} />
             <Text style={styles.title}>Ouch! Hungry</Text>
             <Text style={styles.subtitle}>Seems like you have not</Text>

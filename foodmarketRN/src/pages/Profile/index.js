@@ -1,21 +1,92 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ILDummyUser } from '../../assets'
 import { Gap, ProfileTabSection } from '../../components'
-import { colors, dimension, fonts } from '../../utils'
+import { colors, dimension, fonts, getData, ShowError, showSuccess, storeData } from '../../utils'
+import { launchImageLibrary } from 'react-native-image-picker'
+import axios from 'axios'
+import { API_HOST } from '../../config'
 
-const Profile = () => {
+const Profile = ({navigation}) => {
+
+    const [userProfile, setUserProfile] = useState({})
+    const [photoProfile, setPhotoProfile] = useState(ILDummyUser)
+
+    useEffect(()=>{
+        navigation.addListener('focus', () =>{
+            updateUserProfile()
+        })
+    },[navigation])
+
+    const updateUserProfile = () => {
+        getData('userProfile')
+            .then((res)=>{
+                setUserProfile(res)
+                const host = `http://192.168.100.23:8000/`
+                const urlImage = res.profile_photo_url.split('/').slice(3,7).join('/')
+                setPhotoProfile({uri: `${host}${urlImage}`})
+            })
+    }
+
+    const updatePhoto = () => {
+        let options = {
+            quality: 0.5,
+            maxWidth: 200,
+            maxHeight: 200
+        }
+       launchImageLibrary(options, (response) => {
+            if (response.didCancel || response.errorCode == 'others') {
+            ShowError('User cancelled camera picker');
+            } else {
+                const source = {uri: response.uri}
+                const dataImage = {
+                    uri: response.uri,
+                    type: response.type,
+                    name: response.fileName
+                }
+                const photoForUpload = new FormData()
+                photoForUpload.append('file', dataImage)
+                getData('token')
+                .then((resToken)=>{
+                    axios.post(`${API_HOST.url}/user/photo`, photoForUpload , {
+                        headers: {
+                            Authorization: resToken.value,
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((res)=>{
+                        getData('userProfile')
+                            .then((resPhoto)=>{
+                                showSuccess('Upload Photo Success')
+                                resPhoto.profile_photo_url = `http://192.168.100.23:8000/storage/${res.data.data[0]}`
+                                storeData('userProfile', resPhoto).then(()=>{
+                                    updateUserProfile()
+                                })
+                            
+                            })
+                            .catch((err)=>{
+                                console.log(err)
+                            })
+    
+                    })
+                })
+            }
+       })
+    }
+
     return (
         <View style={styles.container}>
             <Gap height={dimension.height * 0.031}/>
-            <View style={styles.photo}>
-                <View style={styles.borderPhoto}>
-                    <Image source={ILDummyUser} style={styles.photoContainer} />
-                </View>
-            </View>
+                <TouchableOpacity activeOpacity={0.8} onPress={updatePhoto}>
+                    <View style={styles.photo}>
+                            <View style={styles.borderPhoto}>
+                                <Image source={photoProfile} style={styles.photoContainer} />
+                            </View>
+                    </View>
+                </TouchableOpacity>
             <Gap height={dimension.height * 0.019}/>
-            <Text style={styles.name}>Afgan Taufiq</Text>
-            <Text style={styles.email}>ganafgan@gmail.com</Text>
+            <Text style={styles.name}>{userProfile.name}</Text>
+            <Text style={styles.email}>{userProfile.email}</Text>
             <Gap height={dimension.height * 0.06}/>
             <View style={styles.content}>
                 <ProfileTabSection/>

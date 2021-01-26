@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import { color } from 'react-native-reanimated'
+import { StyleSheet, Text, View } from 'react-native'
 import { ILSuccessSignup } from '../../assets'
 import { Button, Gap } from '../../components/atoms'
 import { colors, dimension, fonts } from '../../utils'
@@ -8,7 +7,7 @@ import { colors, dimension, fonts } from '../../utils'
 const SuccessSignUp = ({navigation}) => {
     return (
         <View style={styles.container}>
-            <Image source={ILSuccessSignup} style={styles.img}/>
+            <ILSuccessSignup/>
             <Gap height={dimension.height * 0.036} />
             <Text style={styles.title}>Yeay! Completed</Text>
             <Gap height={dimension.height * 0.007}/>

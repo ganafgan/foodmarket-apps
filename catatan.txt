@@ -72,3 +72,11 @@ logic menampilkan foto nya
                             </View>
                         </TouchableOpacity>
                     </View>
+
+saat berpindah ke screen, panggil lagi get data dengan cara
+const navigation = useNavigation()
+ useEffect(()=>{
+        navigation.addListener('focus', () => {
+            //perintah untuk menggail data
+        })
+    },[navigation])

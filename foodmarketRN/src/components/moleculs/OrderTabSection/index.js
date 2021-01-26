@@ -1,10 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { ILFood1, ILFood2, ILFood3, ILFood4 } from '../../../assets';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInProgress, getPastOrders } from '../../../redux/action';
 import { colors, dimension, fonts } from '../../../utils';
 import ListFood from '../ListFood';
-import { useNavigation } from '@react-navigation/native'
 
 
 
@@ -38,93 +39,77 @@ const renderTabBar = props => (
 
 const inProgress = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const { inProgress } = useSelector((state) => state.orderReducer)
+    const [refreshing, setRefreshing] = useState(false)
+
+    // useEffect(()=>{
+    //     dispatch(getInProgress())
+    // }, [])
+
+    const onRefresh = () => {
+        setRefreshing(true)
+        dispatch(getInProgress())
+        setRefreshing(false)
+    }
+    
 	return (
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
 		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood4}
-                items={5}
-                price={250000}
-                type='in-progress'
-                name='Soup Special'
+            {inProgress.map((order, index)=>{
+                return (
+                    <ListFood 
+                    key={index}
+                    onPress={() => navigation.navigate('OrderDetail', order)} 
+                    image={{uri: order.food.picturePath}}
+                    type='in-progress'
+                    items={order.quantity}
+                    price={order.total}
+                    name={order.food.name}
             />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood1}
-                items={5}
-                price={250000}
-                type='in-progress'
-                name='Soup Special'
-            />
-                
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood2}
-                items={5}
-                price={250000}
-                type='in-progress'
-                name='Soup Special'
-            />
-            <ListFood 
-                rating={3} 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood3}
-                items={5}
-                price={250000}
-                type='in-progress'
-                name='Soup Special'
-            />
+                )
+            })}
 		</View>
+        </ScrollView>
 	)
 }
    
 const pastOrders = () => {
     const navigation = useNavigation()
-	return (
-		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
-            <ListFood 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood4}
-                type='past-orders'
-                items={5}
-                price={250000}
-                name='Soup Special'
-                date='Mei 2, 13.00'
-            />
-            <ListFood 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood1}
-                type='past-orders'
-                items={5}
-                price={250000}
-                name='Soup Special'
-                date='Mei 2, 13.00'
-            />
-            <ListFood 
-                onPress={() => navigation.navigate('OrderDetail')} 
-                image={ILFood2}
-                type='past-orders'
-                items={5}
-                price={250000}
-                name='Soup Special'
-                date='Mei 2, 13.00'
-                status='cancelled'
+    const dispatch = useDispatch()
+    const { pastOrders } = useSelector((state) => state.orderReducer)
+    const [refreshing, setRefreshing] = useState(false)
 
-                />
-            <ListFood 
-                onPress={() => navigation.navigate('OrderDetail')}
-                image={ILFood3}
-                type='past-orders'
-                items={5}
-                price={250000}
-                name='Soup Special'
-                date='Mei 2, 13.00'
-                status='cancelled'
-             />
+    // useEffect(()=>{
+    //     dispatch(getPastOrders())
+    // },[])
+
+    const onRefresh = () => {
+        setRefreshing(true)
+        dispatch(getPastOrders())
+        setRefreshing(false)
+    }
+
+	return (
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+		<View style={{paddingTop: dimension.height * 0.009, paddingHorizontal: 24}}>
+             {pastOrders.map((order, index)=>{
+                return (
+                    <ListFood 
+                    key={index}
+                    onPress={() => navigation.navigate('OrderDetail', order)} 
+                    image={{uri: order.food.picturePath}}
+                    type='past-orders'
+                    items={order.quantity}
+                    price={order.total}
+                    name={order.food.name}
+                    date={order.created_at}
+                    status={order.status}
+            />
+                )
+            })}
 		</View>
+        </ScrollView>
 	)
 }
 

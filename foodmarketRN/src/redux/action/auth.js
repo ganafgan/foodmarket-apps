@@ -6,8 +6,6 @@ import { setLoading } from "./global"
 export const SignUpAction = (dataRegister, photoReducer, navigation ) => (dispatch) => {
     axios.post(`${API_HOST.url}/register`, dataRegister)
         .then((res) => {
-            console.log('datasuccess:',res.data)
-
             const profile = res.data.data.user
             const token = `${res.data.data.token_type} ${res.data.data.access_token}`
 

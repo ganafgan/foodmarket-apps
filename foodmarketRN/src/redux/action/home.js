@@ -1,24 +1,23 @@
 import axios from "axios"
 import { API_HOST } from "../../config"
+import { ShowError } from "../../utils"
 
 export const getFoodData = () => (dispatch) => {
     axios.get(`${API_HOST.url}/food`)
         .then((res)=>{
-            console.log('data food:', res.data.data.data)
             dispatch({
                 type: 'SET_FOOD',
                 value: res.data.data.data
             })
         })
         .catch((err)=>{
-            console.log('err: ', err)
+            ShowError(err.response)
         })
 }
 
 export const getFoodDataByTypes = (types) => (dispatch) => {
     axios.get(`${API_HOST.url}/food?types=${types}`)
         .then((res)=>{
-            // console.log('data food:', res.data.data.data)
             if (types === 'new_food') {
                 dispatch({
                     type: 'SET_NEW_TASTE',
@@ -39,7 +38,7 @@ export const getFoodDataByTypes = (types) => (dispatch) => {
             }
         })
         .catch((err)=>{
-            console.log('err: ', err)
+           ShowError(err.response)
         })
 }
 

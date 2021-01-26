@@ -13,6 +13,7 @@ import {
     OrderSummary,
     SuccessOrder,
     OrderDetail,
+    EditProfile,
     
 } from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -35,7 +36,6 @@ const MainApp = () => {
 const Router = () => {
     return (
         <Stack.Navigator
-            
             screenOptions={{
                 gestureEnabled: true,
                 gestureDirection: 'horizontal',
@@ -90,6 +90,11 @@ const Router = () => {
              <Stack.Screen 
                 name='OrderDetail' 
                 component={OrderDetail} 
+                options={{headerShown:false}}
+             />
+             <Stack.Screen 
+                name='EditProfile' 
+                component={EditProfile} 
                 options={{headerShown:false}}
              />
         </Stack.Navigator>

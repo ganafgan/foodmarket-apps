@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ILUser } from '../../../assets'
@@ -6,17 +7,18 @@ import { colors, dimension, fonts, getData } from '../../../utils'
 const HomeProfile = () => {
 
     const [photo, setPhoto] = useState(ILUser)
+    const navigation = useNavigation()
     
     useEffect(()=>{
-        getData('userProfile')
-        .then((res)=>{
-            console.log('userProfile:', res)
-            const host = `http://192.168.100.23:8000/`
-            const urlImage = res.profile_photo_url.split('/').slice(3,7).join('/')
-            console.log(urlImage)
-            setPhoto({uri: `${host}${urlImage}`})
+        navigation.addListener('focus', () => {
+            getData('userProfile')
+            .then((res)=>{
+                const host = `http://192.168.100.23:8000/`
+                const urlImage = res.profile_photo_url.split('/').slice(3,7).join('/')
+                setPhoto({uri: `${host}${urlImage}`})
+            })
         })
-    },[])
+    },[navigation])
 
     return (
         <View style={styles.wrapperProfile}>

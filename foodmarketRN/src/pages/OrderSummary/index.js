@@ -1,10 +1,10 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { WebView } from 'react-native-webview'
 import { Button, Gap, Header, ItemValue, ListFood, Loading } from '../../components'
 import { API_HOST } from '../../config'
 import { colors, dimension, fonts, getData } from '../../utils'
-import { WebView } from 'react-native-webview';
 
 
 const OrderSummary = ({navigation, route}) => {
@@ -15,17 +15,8 @@ const OrderSummary = ({navigation, route}) => {
         userProfile
     } = route.params
 
-    const [token, setToken] = useState('')
     const [isPaymentOpen, setIsPaymentOpen] = useState(false)
     const [paymentUrl, setPaymentUrl] = useState('http://google.com')
-
-    useEffect(() => {
-        getData('token')
-            .then((res)=>{
-                console.log('token: ', res)
-                setToken(res.value)
-            })
-    }, [])
 
     const onCheckOut = () => {
         const data = {
@@ -35,27 +26,30 @@ const OrderSummary = ({navigation, route}) => {
             total: transaction.total,
             status: 'PENDING'
         }
-        axios.post(`${API_HOST.url}/checkout`, data, {
-            headers: {
-                Authorization: token
-            }
-        })
+        getData('token')
         .then((res)=>{
-            console.log('checkout success: ', res)
-            setIsPaymentOpen(true)
-            setPaymentUrl(res.data.data.payment_url)
+            axios.post(`${API_HOST.url}/checkout`, data, {
+                headers: {
+                    Authorization: res.value
+                }
+            })
+            .then((res)=>{
+                setIsPaymentOpen(true)
+                setPaymentUrl(res.data.data.payment_url)
+            })
+            .catch((err)=>{
+                console.log('checkout error: ', err)
+            })
+            
         })
-        .catch((err)=>{
-            console.log('checkout error: ', err)
-        })
+        
     }
 
     const onNavChange = (state) => {
-        console.log(state)
         const urlSuccess = 'http://47b506d5b30f.ngrok.io/midtrans/success?order_id=13&status_code=201&transaction_status=pending'
         const titleWeb = 'Laravel'
         if (state.title === titleWeb) {
-            navigation.replace('SuccessOrder')
+            navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]})
         }
         
     }

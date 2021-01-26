@@ -20,9 +20,6 @@ const SplashScreen = ({navigation}) => {
         }, 2000)
     }, [])
 
-    useEffect(()=>{
-        
-    },[])
     return (
         <View style={styles.container}>
             <ILLogo/>

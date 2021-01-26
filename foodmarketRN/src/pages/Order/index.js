@@ -1,25 +1,29 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import { EmptyOrder, Header, OrderTabSection } from '../../components'
 import { colors, dimension } from '../../utils'
 
 
 const Order = () => {
 
-    const [isEmpty] = useState(false)
+    const { order } = useSelector(state => state.orderReducer)
 
     return (
         <View style={styles.container}>
-            {isEmpty 
-                ? <EmptyOrder/> 
-                : <View style={styles.content}>
-                    <Header title='Your Orders' subtitle='Wait for the best meal'/>
-                    <View style={styles.tabContainer}>
-                        <OrderTabSection/>
+            {order.length < 1
+                ? (
+                    <EmptyOrder/> 
+                )
+                : (
+                    <View style={styles.content}>
+                        <Header title='Your Orders' subtitle='Wait for the best meal'/>
+                        <View style={styles.tabContainer}>
+                            <OrderTabSection/>
+                        </View>
                     </View>
-                </View>
+                ) 
             }
-            
         </View>
     )
 }
